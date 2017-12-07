@@ -364,7 +364,7 @@ function text_summary($text, $format = NULL, $size = NULL) {
 
   // If a valid delimiter has been specified, use it to chop off the summary.
   if ($delimiter !== FALSE) {
-    return substr($text, 0, $delimiter);
+    return substr($text, 0, $delimiter); //
   }
 
   // We check for the presence of the PHP evaluator filter in the current
