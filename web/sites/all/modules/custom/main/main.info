@@ -1,0 +1,5 @@
+; &Id:$
+name = Main
+description = Main page using hook_menu()
+core = 7.x
+package = Custom
