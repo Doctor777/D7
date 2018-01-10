@@ -1,0 +1,46 @@
+<?php
+/**
+ * Implements hook_block_info().
+ */
+function everypage_block_block_info()
+{
+    $blocks = array();
+    $blocks['everypage_block'] = array(
+        'info' => t('My everypage custom Block'),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function everypage_block_block_view($delta = '')
+{
+    $block = array();
+    switch ($delta) {
+        case 'everypage_block':
+            if (!user_access('everypage_block_permission')) {
+                drupal_set_message('Access to view this content is denied.');
+            } else {
+                $block['subject'] = t('Everypage block title');
+                $block['content'] = t('No content available.');
+            }
+            break;
+    }
+    return $block;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function everypage_block_permission()
+{
+    return [
+        'everypage_block_custom_permission' => [
+            'title' => t('Everypage_block Custom Permission'),
+            'description' => t('Explain what this permission allows the user to do.'),
+        ],
+    ];
+}

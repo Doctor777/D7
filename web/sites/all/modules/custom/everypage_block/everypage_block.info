@@ -1,0 +1,5 @@
+; &Id:$
+name = Everypage block
+description = Everypage block using hook_info() and hook_view()
+core = 7.x
+package = Custom
