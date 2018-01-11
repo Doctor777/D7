@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Build page and form for CRUD database operations.
+ */
+
+/**
  * Implements hook_menu().
  */
 function my_database_menu()
@@ -9,31 +14,27 @@ function my_database_menu()
         'title' => 'Page for insert data',
         'page callback' => 'drupal_get_form',
         'page arguments' => array('my_database_insert_form'),
-        'access arguments' => array('administer site configuration'),
+        'access arguments' =>  array('access content'),
     );
 
     $items['my_database/%/update'] = array(
         'title' => 'We can update the row at this page',
-        'title callback' => 'my_database_update_page_title',
-        'title arguments' => array(1),
         'page callback' => 'drupal_get_form',
         'page arguments' => array('my_database_update_form', 1),
-        'access arguments' => array('administer site configuration'),
+        'access arguments' => array('access content'),
     );
 
     $items['my_database/%/delete'] = array(
         'title' => 'The row can be deleted',
-        'title callback' => 'my_database_delete_page_title',
-        'title arguments' => array(1),
         'page callback' => 'drupal_get_form',
         'page arguments' => array('my_database_delete_form', 1),
-        'access arguments' => array('administer site configuration'),
+        'access arguments' =>  array('access content'),
     );
 
     $items['my_database'] = array(
         'title' => 'Table with data',
         'page callback' => 'my_database_table_data_page',
-        'access arguments' => array('administer site configuration'),
+        'access arguments' => array('access content'),
     );
 
     $items['my_database/'] = array(
@@ -95,7 +96,7 @@ function my_database_insert_form($form, &$form_state)
  */
 function my_database_insert_form_validate($form, &$form_state)
 {
-    if (!ctype_digit($form_state['values']['number'])) {
+    if (!is_numeric($form_state['values']['number'])) {
         form_set_error('number', t('Field "number" must contains an integer.'));
     }
 }
@@ -209,17 +210,13 @@ function my_database_table_data_page()
         ->orderBy('id', 'ASC')
         ->execute();
     while ($value = $query->fetchAssoc()) {
-
-        $value['operation'] = l(t('Edit'), 'my_database/' . $value['id'] . '/update');
-        $value['operation'] .= "|";
-        $value['operation'] .= l(t('Delete'), 'my_database/' . $value['id'] . '/delete');
-
         $rows[] = array(
             $value['id'],
             $value['number'],
             $value['teaser'],
             $value['text'],
-            $value['operation'],
+            l(t('Edit'), "my_database/{$value['id']}/update").' | '.
+            l(t('Delete'), "my_database/{$value['id']}/delete"),
         );
     }
     return theme('table', array('header' => $header, 'rows' => $rows));

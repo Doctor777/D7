@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Build main page and 403-, 404-error pages.
+ */
+
+/**
  * Implements hook_menu().
  */
 function main_menu()

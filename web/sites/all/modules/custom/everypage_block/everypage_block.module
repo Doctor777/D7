@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Provide the custom block, visible on every page with custom permission.
+ */
+
+/**
  * Implements hook_block_info().
  */
 function everypage_block_block_info()
