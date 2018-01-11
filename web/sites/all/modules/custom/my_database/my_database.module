@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Implements hook_menu().
  */
@@ -97,7 +98,6 @@ function my_database_insert_form_validate($form, &$form_state)
     if (!ctype_digit($form_state['values']['number'])) {
         form_set_error('number', t('Field "number" must contains an integer.'));
     }
-
 }
 
 /**
