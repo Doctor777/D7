@@ -49,6 +49,6 @@ function my_database_install()
 /**
  * Implements hook_uninstall().
  */
-function database_ex_uninstall() {
+function my_database_uninstall() {
     drupal_uninstall_schema('custom');
 }
